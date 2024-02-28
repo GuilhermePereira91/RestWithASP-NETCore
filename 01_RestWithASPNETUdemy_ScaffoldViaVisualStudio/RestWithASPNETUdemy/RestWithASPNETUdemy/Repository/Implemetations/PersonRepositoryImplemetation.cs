@@ -1,17 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using RestWithASPNETUdemy.Model;
+﻿using RestWithASPNETUdemy.Model;
 using RestWithASPNETUdemy.Model.Context;
-using System;
 
-namespace RestWithASPNETUdemy.Services.Implemetations
+namespace RestWithASPNETUdemy.Repository.Implemetations
 {
-    public class PersonServiceImplemetation : IPersonService
+    public class PersonRepositoryImplemetation : IPersonRepository
     {
         private volatile int count;
 
         private MySQLContext _context;
 
-        public PersonServiceImplemetation(MySQLContext context)
+        public PersonRepositoryImplemetation(MySQLContext context)
         { 
             _context = context;
         }
@@ -81,7 +79,7 @@ namespace RestWithASPNETUdemy.Services.Implemetations
             return _context.Persons.SingleOrDefault(p => p.Id.Equals(id));
         }
 
-        private bool Exists(long id)
+        public bool Exists(long id)
         {
             return _context.Persons.Any(p => p.Id.Equals(id));
         }
