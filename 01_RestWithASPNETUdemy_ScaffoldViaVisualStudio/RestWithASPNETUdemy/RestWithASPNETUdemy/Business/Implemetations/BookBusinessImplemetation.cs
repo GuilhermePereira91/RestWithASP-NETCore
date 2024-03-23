@@ -7,9 +7,9 @@ namespace RestWithASPNETUdemy.Business.Implemetations
     {
         private volatile int count;
 
-        private readonly IBookRepository _repository;
+        private readonly IRepository<Book> _repository;
 
-        public BookBusinessImplemetation(IBookRepository repository)
+        public BookBusinessImplemetation(IRepository<Book> repository)
         {
             _repository = repository;
         }

@@ -5,6 +5,7 @@ using RestWithASPNETUdemy.Business;
 using RestWithASPNETUdemy.Business.Implemetations;
 using RestWithASPNETUdemy.Model.Context;
 using RestWithASPNETUdemy.Repository;
+using RestWithASPNETUdemy.Repository.Generic;
 using RestWithASPNETUdemy.Repository.Implemetations;
 using Serilog;
 
@@ -26,10 +27,8 @@ builder.Services.AddApiVersioning();
 
 //Injeção de Dependencia
 builder.Services.AddScoped<IPersonBusiness, PersonBusinessImplemetation>();
-builder.Services.AddScoped<IPersonRepository, PersonRepositoryImplemetation>();
 builder.Services.AddScoped<IBookBusiness, BookBusinessImplemetation>();
-builder.Services.AddScoped<IBookRepository, BookRepositoryImplemetation>();
-
+builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 

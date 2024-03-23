@@ -3,7 +3,7 @@ using RestWithASPNETUdemy.Model.Context;
 
 namespace RestWithASPNETUdemy.Repository.Implemetations
 {
-    public class BookRepositoryImplemetation : IBookRepository
+    public class BookRepositoryImplemetation : IRepository<Book>
     {
         private volatile int count;
 
