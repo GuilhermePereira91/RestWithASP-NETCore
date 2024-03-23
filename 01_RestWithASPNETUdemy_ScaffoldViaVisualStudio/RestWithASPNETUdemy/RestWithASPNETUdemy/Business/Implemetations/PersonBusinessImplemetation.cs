@@ -1,4 +1,6 @@
-﻿using RestWithASPNETUdemy.Model;
+﻿using RestWithASPNETUdemy.Data.Converter.Implementations;
+using RestWithASPNETUdemy.Data.VO;
+using RestWithASPNETUdemy.Model;
 using RestWithASPNETUdemy.Repository;
 
 namespace RestWithASPNETUdemy.Business.Implemetations
@@ -8,35 +10,41 @@ namespace RestWithASPNETUdemy.Business.Implemetations
         private volatile int count;
 
         private readonly IRepository<Person> _repository;
+        private readonly PersonConverter _converter;
 
         public PersonBusinessImplemetation(IRepository<Person> repository)
         { 
             _repository = repository;
+            _converter = new PersonConverter();
         }
 
-        public Person Create(Person person)
+        public List<PersonVO> FindAll()
         {
-            return _repository.Create(person);
+            return _converter.Parse(_repository.FindAll());
         }
 
-        public Person Update(Person person)
+        public PersonVO FindById(long id)
         {
-            return _repository.Update(person);
+            return _converter.Parse(_repository.FindById(id));
+        }
+
+        public PersonVO Create(PersonVO person)
+        {
+            var personEntity = _converter.Parse(person);
+            personEntity = _repository.Create(personEntity);
+            return _converter.Parse(personEntity);
+        }
+
+        public PersonVO Update(PersonVO person)
+        {
+            var personEntity = _converter.Parse(person);
+            personEntity = _repository.Create(personEntity);
+            return _converter.Parse(personEntity);
         }
 
         public void Delete(long id)
         {
             _repository.Delete(id);
-        }        
-
-        public List<Person> FindAll()
-        {
-            return _repository.FindAll();
         }
-
-        public Person FindById(long id)
-        {
-            return _repository.FindById(id);
-        }        
     }
 }

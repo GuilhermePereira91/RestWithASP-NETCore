@@ -1,13 +1,13 @@
-﻿using RestWithASPNETUdemy.Model;
+﻿using RestWithASPNETUdemy.Data.VO;
 
 namespace RestWithASPNETUdemy.Business
 {
     public interface IPersonBusiness
     {
-        Person Create(Person person);
-        Person FindById(long id);
-        Person Update(Person person);
+        PersonVO Create(PersonVO person);
+        PersonVO FindById(long id);
+        PersonVO Update(PersonVO person);
         void Delete(long id);
-        List<Person> FindAll();
+        List<PersonVO> FindAll();
     }
 }
