@@ -1,6 +1,8 @@
 using EvolveDb;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi.Models;
 using MySqlConnector;
 using RestWithASPNETUdemy.Business;
 using RestWithASPNETUdemy.Business.Implemetations;
@@ -14,7 +16,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddControllers();
 
@@ -41,6 +43,23 @@ builder.Services.AddSingleton(filterOptions);
 
 builder.Services.AddApiVersioning();
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1",
+        new OpenApiInfo
+        {
+            Title = "REST API's RESTful From 0 to Azure with ASP.NET Core 8 and Docker",
+            Version = "v1",
+            Description = "API RESTful in course 'REST API's From 0 to Azure with ASP.NET Core 8 and Docker'",
+            Contact = new OpenApiContact
+            {
+                Name = "Guilherme Marques",
+                Url = new Uri("https://github.com/GuilhermePereira91")
+            }
+            
+        });
+});
+
 //Injeção de Dependencia
 builder.Services.AddScoped<IPersonBusiness, PersonBusinessImplemetation>();
 builder.Services.AddScoped<IBookBusiness, BookBusinessImplemetation>();
@@ -51,6 +70,16 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "REST API's From 0 to Azure with ASP.NET Core 5 and Docker - V1");
+});
+
+var option = new RewriteOptions();
+option.AddRedirect("^$", "swagger");
+app.UseRewriter(option);
 
 app.UseAuthorization();
 
