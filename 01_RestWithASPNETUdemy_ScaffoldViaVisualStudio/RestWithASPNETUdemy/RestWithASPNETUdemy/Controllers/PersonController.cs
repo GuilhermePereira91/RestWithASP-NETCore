@@ -3,11 +3,13 @@ using RestWithASPNETUdemy.Business;
 using Asp.Versioning;
 using RestWithASPNETUdemy.Data.VO;
 using RestWithASPNETUdemy.Hypermedia.Filters;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RestWithASPNETUdemy.Controllers
 {
     [ApiVersion("1")]
     [ApiController]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : ControllerBase
     {

@@ -5,14 +5,14 @@ using RestWithASPNETUdemy.Repository;
 
 namespace RestWithASPNETUdemy.Business.Implemetations
 {
-    public class BookBusinessImplemetation : IBookBusiness
+    public class BookBusinessImplementation : IBookBusiness
     {
         private volatile int count;
 
         private readonly IRepository<Book> _repository;
         private readonly BookConverter _converter;
 
-        public BookBusinessImplemetation(IRepository<Book> repository)
+        public BookBusinessImplementation(IRepository<Book> repository)
         {
             _repository = repository;
             _converter = new BookConverter();
