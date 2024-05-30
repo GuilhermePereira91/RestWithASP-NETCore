@@ -61,9 +61,25 @@ namespace RestWithASPNETUdemy.Repository
             return builder.ToString();
         }
 
-        public User ValidadeCredentials(string username)
+        public User ValidadeCredentials(string userName)
         {
-            return _context.Users.SingleOrDefault(u => u.UserName == username);
+            try
+            {
+                return _context.Users.FirstOrDefault(u => u.UserName == userName);
+            }
+            catch (InvalidCastException ex)
+            {
+                return null;                
+            }            
+        }
+
+        public bool RevokeToken(string userName)
+        {
+            var user = _context.Users.SingleOrDefault(u => u.UserName == userName);
+            if (user is null) return false;
+            user.RefreshToken = null;
+            _context.SaveChanges();
+            return true;
         }
     }
 }

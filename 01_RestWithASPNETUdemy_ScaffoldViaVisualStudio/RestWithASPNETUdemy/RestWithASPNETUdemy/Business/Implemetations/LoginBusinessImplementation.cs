@@ -59,9 +59,9 @@ namespace RestWithASPNETUdemy.Business.Implemetations
 
             var principal = _tokenService.GetPrincipalFromExpiredToken(accessToken);
 
-            var username = principal.Identity.Name;
+            var userName = principal.Identity.Name;
 
-            var user = _repository.ValidadeCredentials(username);
+            var user = _repository.ValidadeCredentials(userName);
 
             if (user == null || 
                 user.RefreshToken != refreshToken || 
@@ -84,6 +84,11 @@ namespace RestWithASPNETUdemy.Business.Implemetations
                 expirationDate.ToString(DATE_FORMAT),
                 accessToken,
                 refreshToken);
+        }
+
+        public bool RevokeToken(string userName)
+        {
+            return _repository.RevokeToken(userName);
         }
     }
 }
