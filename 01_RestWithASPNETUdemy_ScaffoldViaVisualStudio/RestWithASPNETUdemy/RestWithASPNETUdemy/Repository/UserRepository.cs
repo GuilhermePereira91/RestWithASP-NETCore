@@ -60,5 +60,10 @@ namespace RestWithASPNETUdemy.Repository
 
             return builder.ToString();
         }
+
+        public User ValidadeCredentials(string username)
+        {
+            return _context.Users.SingleOrDefault(u => u.UserName == username);
+        }
     }
 }
