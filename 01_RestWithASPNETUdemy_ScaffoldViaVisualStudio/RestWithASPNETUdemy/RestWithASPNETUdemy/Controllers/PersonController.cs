@@ -70,6 +70,16 @@ namespace RestWithASPNETUdemy.Controllers
             return Ok(_personBusiness.Update(person));
         }
 
+        [HttpPatch("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        public IActionResult Patch(long id)
+        {
+            var person = _personBusiness.Disable(id);
+            return Ok(person);
+        }
+
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -78,6 +88,6 @@ namespace RestWithASPNETUdemy.Controllers
         {
             _personBusiness.Delete(id);
             return NoContent();
-        }
+        }       
     }
 }

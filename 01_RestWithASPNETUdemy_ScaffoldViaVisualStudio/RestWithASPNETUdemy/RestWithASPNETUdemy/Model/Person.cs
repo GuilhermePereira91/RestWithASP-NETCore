@@ -14,5 +14,8 @@ namespace RestWithASPNETUdemy.Model
         public string Address { get; set; } = string.Empty;
         [Column("gender")]
         public string Gender { get; set; } = string.Empty;
+        [Column("enabled")]
+        public bool Enabled { get; set; }
+
     }
 }
